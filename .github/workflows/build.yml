@@ -34,14 +34,14 @@ jobs:
             openjdk-17-jdk \
             patch
 
-      - name: Install Buildozer and Cython
+      - name: Install Buildozer, Cython, and Pinned Pip
         run: |
-          pip install --upgrade pip setuptools wheel
+          # This downgrades pip to a version that supports the build utilities
+          pip install "pip<24.1" setuptools wheel
           pip install cython==0.29.33 buildozer virtualenv
 
       - name: Compile Android APK
         run: |
-          # This runs the compiler cleanly in an automated environment
           buildozer -v android debug
 
       - name: Upload Finished APK
